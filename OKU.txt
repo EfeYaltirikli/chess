@@ -1,0 +1,54 @@
+zeichess 1.0.0 — ortak dosya üzerinden çok oyunculu satranç
+==========================================================
+
+Dosyalar: zeichess.py (arayüz), chess_engine.py (kurallar), db.py (ortak veritabanı),
+          pieces.py (taş görselleri), test_zeichess.py (hızlı test)
+
+1) GEREKLİ PAKETLER (bir kez)
+-----------------------------
+    py -m pip install PySide6 pyinstaller
+
+2) ÇALIŞTIR / EXE YAP
+---------------------
+Derlemeden denemek için:   py zeichess.py
+Hızlı test:                py test_zeichess.py     (sonda "TÜM TESTLER OK" yazmalı)
+
+EXE:
+    py -m PyInstaller --noconfirm --onefile --windowed --name zeichess zeichess.py
+
+exe şurada çıkar:  dist\zeichess.exe   (build klasörü ve zeichess.spec silinebilir)
+
+3) GİRİŞ
+--------
+- Ortak ağ klasöründe bir .db dosyası seçin (yoksa oluşur). Herkes AYNI dosyayı seçer.
+  Örnek: \\sunucu\paylasim\zeichess.db  ya da  Z:\ortak\zeichess.db
+- Sadece kullanıcı adı yazılır. Ad yoksa yeni hesap açılır. Şifre yok.
+- Dosya yolu ve kullanıcı adı hatırlanır.
+
+4) OYNAMA
+---------
+- Hızlı eşleşme: 1+0 ... 30+20 kutularından birine tıkla. Aynı süreyi seçen biri varsa
+  oyun hemen başlar, yoksa ilan açılır (tekrar tıkla = iptal).
+- Oyun oluştur: istediğin süre/artış, renk, dereceli/dostane; herkese açık ya da bir
+  oyuncuya meydan okuma. Davet gelen kişide KABUL / REDDET çıkar.
+- Lobi sekmesinde açık ilanlara tıklayarak katılırsın. "Oynanan oyunlar"dan izlersin.
+- Taşlar sürükle-bırak ya da tıkla-tıkla ile oynanır. Gidilebilen kareler noktayla görünür.
+- Sıra rakipteyken ön hamle (premove) yapabilirsin; sağ tık iptal eder.
+- Sağ tık sürükle = ok, sağ tık = daire (analiz işaretleri).
+- Klavye: ← → hamleler arası, ↑ ilk, ↓ son konum, F tahtayı çevir.
+- Düğmeler: Geri al (istek), ½ Berabere (teklif), ⚑ Pes et (iki tık), İptal et (ilk iki
+  hamleden önce, puan değişmez), +15s rakibe süre ver.
+- Oyun bitince: RÖVANŞ (renkler değişir), PGN kopyala.
+
+5) KURALLAR
+-----------
+Rok, geçerken alma, terfi (seçim penceresi), şah/mat, pat, üç kez tekrar, 50 hamle kuralı,
+yetersiz materyal otomatik uygulanır. Süre bittiğinde rakibin mat edecek materyali yoksa
+oyun berabere biter. Saat ilk iki hamleden sonra başlar.
+
+6) ELO
+------
+Herkes 1500 ile başlar. Bullet / Blitz / Rapid / Klasik ayrı puanlanır.
+İlk 30 oyunda K=40, sonra K=20. 10 oyundan azsa puanın yanında "?" görünür.
+Dostane oyunlar puanı değiştirmez. Profil sayfasında puanlar ve geçmiş oyunlar var
+(çift tıkla → oyunu incele).
